@@ -33,7 +33,7 @@ class BinarySearchTree:
 
         # if value euquals current node value
         else:
-            print("Value already in tree")
+            print("Value already in tree") 
 
     def print_tree(self):
         if self.root != None: 
