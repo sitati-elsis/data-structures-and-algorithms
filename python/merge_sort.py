@@ -1,34 +1,28 @@
-# define method to merge the arrays
+def merge_sort(numbers):
+    # base case for the recursion
+    if len(numbers) < 2 :
+        return numbers
 
-def merge(left, right):
-    # final merged array
-    result = []
-    # i and j represent indexes for left and arrays
-    i, j = 0, 0
-    while i < len(left) and j < len(right):
-        if left[i] <= right[i]:
-            result.append(left[i])
-            i +=1
+    midpoint = int(len(numbers)/2)
+    left_array = numbers[:midpoint]
+    right_array = numbers[midpoint:]
+    left_sorted = merge_sort(left_array)
+    right_sorted = merge_sort(right_array)
+
+    return merge(left_sorted, right_sorted)
+
+def merge(left_array, right_array):
+    sorted_array = []
+    # perfom this loop as long as we have elements in both arrays
+    while(len(left_array) and len(right_array)):
+        if left_array[0] < right_array[0]:
+            sorted_array.append(left_array.pop(0))
         else:
-            result.append(right[j])
-            j += 1
+            sorted_array.append(right_array.pop(0))
 
-    # if you have elements remaining in the left array
-    result += left[i:]
-    # if you have result remaining in the right array
-    result +=  right[j:]
-    return result
-
-def mergesort(lst):
-    # if the list is already sorted
-    if len(lst) <= 1:
-        return lst
-    # if we have more than one item in the list
-    midpoint = int(len(lst)/2)
-    left = mergesort(lst[:midpoint])
-    right = mergesort(lst[midpoint:])
-    return merge(left, right)
-
-# items = [2, 45, 65, 87, 67, 4, 25, 98, 45, 15, 87, 99, 98]
-items = [5,4,3,2,1]
-print(mergesort(items))
+    # it is possible that an array may still be left with elements after the loop is done executing
+    sorted_array = sorted_array + left_array + right_array
+    return sorted_array
+    
+numbers = [64, 34, 25, 12, 22, 11, 90,78,54]
+print(merge_sort(numbers))
