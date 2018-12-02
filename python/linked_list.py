@@ -1,79 +1,69 @@
-class Node():
+class Node:
     def __init__(self, data):
-        self.next_node = None
         self.data = data
+        self.next_node = None 
 
 
-class LinkedList():
+class LinkedList:
     def __init__(self):
         self.head = None
-        self.tail = None
-        self.size = 0
-    # adding a node to the tail of the linked list
-    def add(self, node):
-        new_node = Node(node)
-        # incase we already have a node in the linked list
-        if self.tail:
-            self.tail.next_node = new_node
-            self.tail = new_node
 
-        # incase we do not have a node in the linked list
-        else:
+    def print_nodes(self):
+        node = self.head
+        if not node:
+            print('There is no item in the list')
+
+        while node:
+            print(node.data)
+            node = node.next_node
+
+    def list_length(self):
+        count = 0
+        node = self.head
+        if not node:
+            print("list is empty")
+        while node:
+            count+=1
+            node = node.next_node
+        return count
+
+
+    def insert_at_begining(self, new_node):
+        head_node = self.head
+        self.head = new_node
+        new_node.next_node = head_node
+
+    def insert_at_the_end(self, new_node):
+        node = self.head
+        if not node:
             self.head = new_node
-            self.tail = new_node
-        # increase the size of the list by one
-        self.size += 1
 
-    def add_at(self, node, index):
-        new_node = Node(node)
-        # keep track of previous node
-        previous_node = None
-        current_node = self.head
-        i = 0
-        while i < index and current_node.next_node:
-            previous_node = current_node
-            current_node = current_node.next_node
-            i += 1
+        while node:
+            if node.next_node is None:
+                break
+            node = node.next_node
+        node.next_node = new_node
 
-        if i == index:
-            previous_node.next_node = new_node
-            new_node.next_node =   current_node
-            return True
-        else:
-            # list not long enough for the index
-            return False
+    def insert_at_postion(new_node, position):
+        if position < 0 or position > self.list_length():
+            print("invalid position")
+        elif position == 0:
+            self.insert_at_begining(new_node)
+        if postion 
 
-    def remove(self, node):
-        previous_node = None
-        current_node = self.head
-        while current_node:
-            if current_node.data == node:
-                if previous_node:
-                    previous_node.next_node = current_node.next_node
-                else:
-                    self.head = current_node.next_node
-                self.size -= 1
-                return True
-            previous_node = current_node
-            current_node = current_node.next_node
-        return False
-            
 
-    def to_list(self):
-        l = []
-        current_node = self.head
-        while current_node:
-            l.append(current_node.data)
-            current_node = current_node.next_node
-        return l
-
-l = LinkedList()
-l.add(1)
-l.add(2)
-l.add(3)
-l.add(4)
-print(l.to_list())
-l.add_at("new data", 1)
-print(l.to_list())
-l.remove("new data")
-print(l.to_list())
+first_node = Node(8)
+linked_list =  LinkedList()
+linked_list.insert_at_begining(first_node)
+second_node = Node(15)
+linked_list.insert_at_begining(second_node)
+third_node = Node(33)
+node_four = Node(29)
+node_five = Node(32)
+node_six = Node(56)
+linked_list.insert_at_begining(third_node)
+linked_list.insert_at_the_end(node_four)
+linked_list.insert_at_the_end(node_five)
+linked_list.insert_at_the_end(node_six)
+linked_list.print_nodes()
+print(linked_list.list_length())
