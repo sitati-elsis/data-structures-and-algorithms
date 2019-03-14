@@ -19,7 +19,7 @@ function merge(leftArray, rightArray){
     let sortedArray = []
     // This loop should execute as long as we have elements in both arrays
     while (leftArray.length && rightArray.length){
-        if (leftArray[0] < rightArray[0]){
+        if (leftArray[0] <= rightArray[0]){
             sortedArray.push(leftArray.shift())
         }
         else{

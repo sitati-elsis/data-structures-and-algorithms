@@ -1,70 +1,36 @@
 class Node:
-    def __init__(self, value=None):
+    def __init__(self, value):
         self.value = value
         self.left_child = None
         self.right_child = None
 
-class BinarySearchTree:
+
+class Tree:
     def __init__(self):
         self.root = None
 
-    def insert(self, value):
-        # when root is empty
-        if self.root == None:
+    def to_object(self):
+        pass
+
+    def add_node(self, value):
+        node = self.root
+        if not node:
             self.root = Node(value)
-        else:
-            self._insert(value, self.root)
-
-    def _insert(self, value, cur_node):
-        if value < cur_node.value:
-            # if current node doesn't have a left child
-            if cur_node.left_child == None:
-                cur_node.left_child = Node(value)
-
+            return
+        while node:
+            if node.value > value :
+                //go left
+                # if you find a node
+                if node.left_child:
+                    node = node.left_child
+                else:
+                    node.left_child = Node(value)
+                    break
             else:
-                self._insert(value, cur_node.left_child)
+                # go right
+                if node.right_child:
+                    node = node.right_child
+                else:
+                    node.right_child = new Node(value)
+                    break
 
-        elif value > cur_node.value:
-            # if the value is greater than current node value
-            if cur_node.right_child == None:
-                cur_node.right_child = Node(value)
-            else:
-                self._insert(value, cur_node.right_child)
-
-        # if value euquals current node value
-        else:
-            print("Value already in tree") 
-
-    def print_tree(self):
-        if self.root != None: 
-            self._print_tree(self.root)
-
-    def _print_tree(self, cur_node):
-        if cur_node != None:
-            self._print_tree(cur_node.left_child)
-            print(str(cur_node.value))
-            self._print_tree(cur_node.left_child)
-
-
-    def find_node(self, value):
-        current = self.root
-        if not current:
-            return "Tree is empty"
-        if value == current.value:
-            Print("Item found")
-        while current:
-            if value > current.value:
-                if current.right_child == None:
-                    Print("item not found")
-
-
-def fill_tree(tree, num_elements=100, max_int=1000):
-    from random import randint
-    for _ in list(range(num_elements)):
-        cur_element = randint(0, max_int)
-        tree.insert(cur_element)
-    return tree
-    
-tree = BinarySearchTree()
-tree = fill_tree(tree)
-tree.print_tree()
