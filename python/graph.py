@@ -1,57 +1,52 @@
-# main function and creation of graph
+class Node:
+    def __init__(self, value):
+        self.value = value
 
-def generate_edges(graph):
-    edges = []
-    for nodes in graph:
-        for neighbour in graph[nodes]:
-            edges.append((nodes, neighbour))
-    return edges
+class Graph:
+    def __init__(self):
+        self.adjacency_list = {}
+    def add_vertex(self, vertex):
+        vertex = Node(vertex)
+        if vertex.value not in self.adjacency_list:
+            self.adjacency_list[vertex.value] = []
+        else:
+            print(f"{vertex.value} already exists")
 
+    def add_edge(self,vertex1, vertex2):
+        if vertex1 in self.adjacency_list and vertex2 in self.adjacency_list:
+            self.adjacency_list[vertex1].append(vertex2)
+            self.adjacency_list[vertex2].append(vertex1) 
+        else:
+            print("invalid vertex")
 
-def find_path_two_vertices(graph,start, end, path=[]):
-    # adding first node to path
-    path = path + [start]
-    if start == end:
-        return path
-    if not start in graph:
-        return None
-    # if start and end are different
-    for node in graph[start]:
-        if node not in path:
-            newpath = find_path_two_vertices(graph, node, end, path)
-            if newpath:
-                return newpath
-    return None
+    def remove_edge(self, vertex1, vertex2):
+        if vertex1 in self.adjacency_list and vertex2 in self.adjacency_list:
+            self.adjacency_list[vertex1].pop(self.adjacency_list[vertex1].index(vertex2))
+            self.adjacency_list[vertex2].pop(self.adjacency_list[vertex2].index(vertex1))
+        else:
+            print("invalid vertex")
 
+    def remove_vertex(self, vertex):
+        while self.adjacency_list[vertex]:
+            print(self.adjacency_list[vertex])
+            item = self.adjacency_list[vertex][0]
+            self.remove_edge(vertex, item)
+            self.adjacency_list[vertex].pop(0)
+        del self.adjacency_list[vertex]
 
-def shortest_path_two_vertices(graph, start, end, path=[]):
-    path = path + [start]
-    if start == end:
-        return path
-    if not start in graph:
-        return start
-    shortest_path = None
-    for node in graph[start]:
-        if node not in path:
-            newpath = shortest_path_two_vertices(graph, node, end, path)
-            if newpath:
-                if not shortest_path or len(shortest_path) < len(newpath):
-                    shortest = newpath
-
-    return shortest
-if __name__ == "__main__":
-    graph = {
-        'A': ['A', 'B', 'C'],
-        'B': ['C', 'D'],
-        'C': ['D'],
-        'D': ['C'],
-        'E': ['F'],
-        'G': [],
-        'F': []
-    }
-
-    print(graph['A'])
-    print ("The nodes/vertices of the graph", graph.keys, "\n The edges of graph: for keys{0}, are {1}".format(graph.keys(), graph.values()))
-    print("The generated edges are :", generate_edges(graph))
-    print("Path between two vertices:", find_path_two_vertices(graph, 'A', 'D', path=[]))
-    print("Shortest path between two vertices", shortest_path_two_vertices(graph, 'A', 'D', path=[]))
+    
+graph1 = Graph()
+graph1.add_vertex("A")
+graph1.add_vertex("B")
+graph1.add_vertex("C")
+graph1.add_vertex("D")
+graph1.add_vertex("E")
+graph1.add_vertex("F")
+graph1.add_edge("A", "B")
+graph1.add_edge("A", "C")
+graph1.add_edge("B", "D")
+graph1.add_edge("C", "E")
+graph1.add_edge("D", "E")
+graph1.add_edge("D", "F")
+graph1.add_edge("E", "F")
+print(graph1.adjacency_list)

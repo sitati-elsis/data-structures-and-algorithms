@@ -45,6 +45,19 @@ class BinarySearchTree:
             print(str(cur_node.value))
             self._print_tree(cur_node.left_child)
 
+
+    def find_node(self, value):
+        current = self.root
+        if not current:
+            return "Tree is empty"
+        if value == current.value:
+            Print("Item found")
+        while current:
+            if value > current.value:
+                if current.right_child == None:
+                    Print("item not found")
+
+
 def fill_tree(tree, num_elements=100, max_int=1000):
     from random import randint
     for _ in list(range(num_elements)):
