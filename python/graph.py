@@ -34,11 +34,28 @@ class Graph:
             self.adjacency_list[vertex].pop(0)
         del self.adjacency_list[vertex]
 
-    
+    def depth_first_recurive(self, vertex):
+        visited = {}
+        result = []
+        def dfs(node):
+            if not node:
+                return
+            visited[node] = True
+            result.append(node)
+            neighbours = self.adjacency_list[node]
+            print(f"this are neigbours {neighbours}")
+            for item in neighbours:
+                if item not in visited:
+                    return dfs(item)
+                
+        dfs(vertex)
+        return result
+
+
 graph1 = Graph()
 graph1.add_vertex("A")
 graph1.add_vertex("B")
-graph1.add_vertex("C")
+graph1.add_vertex("C") 
 graph1.add_vertex("D")
 graph1.add_vertex("E")
 graph1.add_vertex("F")
@@ -50,3 +67,5 @@ graph1.add_edge("D", "E")
 graph1.add_edge("D", "F")
 graph1.add_edge("E", "F")
 print(graph1.adjacency_list)
+print("=============================")
+print(graph1.depth_first_recurive("A"))
