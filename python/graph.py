@@ -35,32 +35,42 @@ class Graph:
             self.adjacency_list[vertex].pop(0)
         del self.adjacency_list[vertex]
 
-    def depth_first_recursive(self, vertex):
+    
+
+    def depth_first_recursive(self, start):
         visited = {}
         result = []
-        def dfs(node):
-            visited[node] = True
-            result.append(node)
-            neighbours = self.adjacency_list[node]
-            print(f"These are neighbours{node}:{visited}: {neighbours}")
-            for item in neighbours:
-                if item not in visited:
-                    dfs(item)
-        dfs(vertex)
-
+        def dfs(vertex):
+            visited[vertex] = True
+            result.append(vertex)
+            neighbours = self.adjacency_list[vertex]
+            for node in neighbours:
+                if node not in visited:
+                    dfs(node)
+        dfs(start)
         return result
 
+    def depth_first_iterative(self, start):
+        visited = {}
+        stack = [start]
+        result = []
+        while stack:
+            vertex = stack.pop()
+            visited[vertex] = True
+            result.append(vertex)
+            neighbours = self.adjacency_list[vertex]
+            for item in neighbours:
+                if item not in stack and item not in visited:
+                    stack.append(item)
+        return result
 
-    
 graph1 = Graph()
 graph1.add_vertex("A")
 graph1.add_vertex("B")
-graph1.add_vertex("C")
+graph1.add_vertex("C") 
 graph1.add_vertex("D")
 graph1.add_vertex("E")
 graph1.add_vertex("F")
-graph1.add_vertex("G")
-graph1.add_vertex("H")
 graph1.add_edge("A", "B")
 graph1.add_edge("A", "C")
 graph1.add_edge("B", "D")
@@ -68,7 +78,7 @@ graph1.add_edge("C", "E")
 graph1.add_edge("D", "E")
 graph1.add_edge("D", "F")
 graph1.add_edge("E", "F")
-graph1.add_edge("E", "G")
 print(graph1.adjacency_list)
 print("==========================")
 print(graph1.depth_first_recursive("A"))
+print(graph1.depth_first_iterative("A"))
