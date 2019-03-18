@@ -1,20 +1,19 @@
 def quick_sort(numbers):
+    # base case
     if len(numbers) < 2:
         return numbers
+
     pivot = numbers.pop()
-    left = []
-    right = []
-    for item in numbers:
-        if item < pivot:
-            left.append(item)
+    left_array = []
+    right_array = []
+    for i in list(range(len(numbers))):
+        if numbers[i] < pivot:
+            left_array.append(numbers[i])
         else:
-            right.append(item)
+            right_array.append(numbers[i])
+    sorted_left = quick_sort(left_array)
+    sorted_right = quick_sort(right_array)
+    return sorted_left + sorted_right
 
-    left_sorted = quick_sort(left)
-    right_sorted = quick_sort(right)
-
-    return left_sorted + left.append(pivot) + right_sorted
-
-    
 numbers = [64, 34, 25, 12, 22, 11, 90,78,54]
 print(quick_sort(numbers))
