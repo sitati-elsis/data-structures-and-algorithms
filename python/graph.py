@@ -64,6 +64,21 @@ class Graph:
                     stack.append(item)
         return result
 
+    def breadth_first_iterative(self, node):
+        visited = {}
+        queue = [node]
+        result = []
+        while queue:
+            vertex = queue.pop(0)
+            visited[vertex] = True
+            result.append(vertex)
+            neighbours = self.adjacency_list[vertex]
+            for item in neighbours:
+                if item not in queue and item not in visited:
+                    queue.append(item)
+        return result
+
+
 graph1 = Graph()
 graph1.add_vertex("A")
 graph1.add_vertex("B")
@@ -81,4 +96,7 @@ graph1.add_edge("E", "F")
 print(graph1.adjacency_list)
 print("==========================")
 print(graph1.depth_first_recursive("A"))
+print("==========================  iterative dfs")
 print(graph1.depth_first_iterative("A"))
+print("===================== iterative bfs")
+print(graph1.breadth_first_iterative("A"))
